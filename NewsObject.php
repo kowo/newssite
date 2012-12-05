@@ -3,7 +3,7 @@ class NewsObject {
 	
 	private $title;
 	private $link;
-	public $date;
+	private $date;
 	private $text;
 	private $src;
 
@@ -74,6 +74,15 @@ class NewsObject {
 	public function getTimestamp() {
 		return $this->date->getTimestamp();
 	}
+
+	static function cmp_time($a,$b) {
+		$at = $a->getTimestamp();
+		$bt = $b->getTimestamp();
+		if($at == $bt) {
+			return 0;
+		}
+		return ($at > $bt) ? -1 : 1;
+	} 
 }
 
 ?>

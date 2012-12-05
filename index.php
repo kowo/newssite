@@ -69,16 +69,8 @@ if(isset($_GET['f'])) {
 	}
 
 	
-	/* Sort array by time (not working)
-	function cmp($a, $b) {
-		$at = $a->getTimestamp();
-		$bt = $b->getTimestamp();
-		if($at == $bt) {
-			return 0;
-		}
-		return ($at < $bt) ? -1 : 1;
-	}
-	usort($ENTRIES, "cmp");*/
+	// Sort array by time (newest first)
+	usort($ENTRIES, array("NewsObject", "cmp_time"));
 
 	print_r($ENTRIES);
 	echo "</pre>";
