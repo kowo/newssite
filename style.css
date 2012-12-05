@@ -2,3 +2,21 @@ div {
 	border: 1px black solid; 
 	margin: .3em;
 }
+
+#left, #right {
+	position: absolute;
+	top: 2em;
+	border: none;
+	padding: 1em;
+}
+
+#left {
+	left: 0;
+	right: 50%;
+}
+
+#right {
+	right: 0;
+	left: 50%;
+	border-left: 2px gray dashed;
+}

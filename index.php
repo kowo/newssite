@@ -4,38 +4,59 @@ header('Content-Type: text/html; charset=utf-8');
 $feed_ts  = 'http://www.tagesschau.de/xml/atom/';
 $feed_mdr = 'http://www.mdr.de/mdr-info/news/nachrichten100-rss.xml';
 
+$header =	"<!DOCTYPE html>\n".
+			"<html>\n".
+			"	<head>\n".
+			"		<title>News Site</title>\n".
+			"		<style type=\"text/css\">\n".
+			"			@import url('./style.css');\n".
+			"		</style>\n".
+			"	</head>\n".
+			"	<body>\n".
+			"		<p><a href=\"./index.php\">Zurück</a></p>\n";
 
-if(isset($_GET['f'])) {
-	switch($_GET['f']) {
-		case 'ts':
-			$feedsrc = $feed_ts;
-			$xslsrc = './transformation_tagesschau.xslt';
-			break;
-		case 'mdr':
-			$feedsrc = $feed_mdr;
-			$xslsrc = './transformation_mdr.xslt';
-			break;
-		default:
-			header('Location: ./index.php');
-			exit;
-	}
+// XSLT Transform
+if(isset($_GET['p']) && $_GET['p'] == 'xslt') {
+
+	echo $header.
+		 "		<div id=\"left\">\n";
 
 	$dom    = new DomDocument();
-	$dom->load($feedsrc);
-
 	$xsl    = new DomDocument();
-	$xsl->load($xslsrc);
+
+	//Tagesschau
+	$dom->load($feed_ts);
+	$xsl->load('./transformation_tagesschau.xslt');
 
 	$xpr    = new XsltProcessor();
-	$xsl    = $xpr->importStylesheet($xsl);
+	$xpr->importStylesheet($xsl);
 
 	$output = $xpr->transformToDoc($dom);
-	echo $output->saveXML();
+	echo $output->saveHTML();
+
+	echo "		</div>\n".
+		 "		<div id=\"right\">\n";
+
+	//MDR
+	$dom->load($feed_mdr);
+	$xsl->load('./transformation_mdr.xslt');
+
+	$xpr    = new XsltProcessor();
+	$xpr->importStylesheet($xsl);
+
+	$output = $xpr->transformToDoc($dom);
+	echo $output->saveHTML();
+
+	echo "		</div>\n".
+		 "	</body>\n".
+		 "</html>";
 
 
+// DOM Parsing
 } elseif(isset($_GET['p']) && $_GET['p'] == 'php') {
 	
-	//DOM parsing
+	echo $header;
+
 	require('./NewsObject.php');
 
 	$i = 0;
@@ -75,6 +96,10 @@ if(isset($_GET['f'])) {
 	print_r($ENTRIES);
 	echo "</pre>";
 
+	echo "	</body>\n".
+		 "</html>";
+
+//Start
 } else {
 	include('./start.inc.php');
 }

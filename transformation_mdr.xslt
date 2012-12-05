@@ -6,21 +6,9 @@
   <xsl:output method="html" encoding="utf-8" indent="yes" omit-xml-declaration="yes" />
 
   <xsl:template match="/rss/channel">
-    <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE HTML SYSTEM "about:legacy-compat"></xsl:text>
-    <html>
-    <head><title>News Site</title>
-    <style type="text/css">
-      @import url('./style.css');
-    </style>
-    </head>
-    <body>
 
-    <xsl:call-template name="backlink" />
     <xsl:call-template   name="top" />
     <xsl:apply-templates select="item" />
-
-    </body>
-    </html>
 
   </xsl:template>
 
@@ -69,17 +57,6 @@
       <xsl:value-of select="lastBuildDate" />
     </h6>
 
-  </xsl:template>
-
-
-  <!-- Link zur Startseite -->
-  <xsl:template name="backlink">
-    <xsl:element name="a">
-      <xsl:attribute name="href">
-        <xsl:text>./index.php</xsl:text>
-      </xsl:attribute>
-      Zur Startseite
-    </xsl:element>
   </xsl:template>
 
 </xsl:stylesheet>
