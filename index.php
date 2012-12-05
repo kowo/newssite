@@ -6,11 +6,11 @@ if(isset($_GET['f'])) {
 	switch($_GET['f']) {
 		case 'ts':
 			$feedsrc = 'http://www.tagesschau.de/xml/atom/';
-			$xslsrc = './ts.xslt';
+			$xslsrc = './transformation_tagesschau.xslt';
 			break;
 		case 'mdr':
 			$feedsrc = 'http://www.mdr.de/mdr-info/news/nachrichten100-rss.xml';
-			$xslsrc = './mdr.xslt';
+			$xslsrc = './transformation_mdr.xslt';
 			break;
 		default:
 			header('Location: ./index.php');
