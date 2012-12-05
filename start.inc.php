@@ -9,7 +9,7 @@
 			<a href="?p=xslt">XSLT Transformation</a><br>
 			<a href="?p=php">XML DOM  PHP Parsing</a><br>
 			<br>
-			<a href="./readme.txt" target="_blank">README</a>
+			<a href="./README" target="_blank">WRITEME</a>
 		</div>
 	</body>
 </html>
